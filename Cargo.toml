@@ -1,8 +1,7 @@
 [package]
-name = "nova-scotia"
-version = "0.5.0"
+name = "custom-nova-scotia"
+version = "0.1.0"
 edition = "2021"
-authors = ["Nalin <novascotia@nibnalin.me>"]
 description = "Middleware to compile Circom circuits to Nova zkSNARK scheme"
 documentation = "https://github.com/nalinbhardwaj/Nova-Scotia/blob/main/README.md"
 readme = "README.md"
@@ -14,21 +13,22 @@ keywords = ["zkSNARKs", "cryptography", "proofs"]
 
 [dependencies]
 anyhow = "1.0.65"
-bellperson = { version = "0.25", default-features = false }
+bellperson = { version = "0.24", default-features = false }
 byteorder = "1.4.3"
-ff = { version = "0.13", features = ["derive"]}
+ff = { version = "0.12", features = ["derive"]}
 hex-literal = "0.3.4"
 itertools = "0.9.0"
-nova-snark = "0.23.0"
+#point towards parallel nova-snark library 
+nova-snark = {path = "../paranova-lib" }
 num-bigint = { version = "0.4", features = ["serde", "rand"] }
-num-traits = "0.2.15"
-pasta_curves = "0.5"
+num-traits = "0.2"
+pasta_curves = { version = "0.5.2", features = ["repr-c", "serde"], package = "fil_pasta_curves" }
 serde = "1.0"
 serde_json = "1.0.85"
 
 [target.'cfg(target_family = "wasm")'.dependencies]
 wasm-bindgen = { version = "0.2.81", features = ["serde-serialize"]}
-rayon = "1.5"
+rayon = "1.3.0"
 wasm-bindgen-rayon = { version = "1.0"}
 wasm-bindgen-futures = "0.4"
 js-sys = "0.3"

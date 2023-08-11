@@ -6,6 +6,7 @@ use std::str;
 
 use bellperson::{ConstraintSystem, LinearCombination, SynthesisError};
 use ff::PrimeField;
+use pasta_curves::Fp;
 
 #[derive(Serialize, Deserialize)]
 pub struct CircuitJson {
@@ -44,7 +45,7 @@ impl<'a, Fr: PrimeField> CircomCircuit<Fr> {
             // Public inputs do not exist, so we alloc, and later enforce equality from z values
             let f: Fr = {
                 match &self.witness {
-                    None => Fr::ONE,
+                    None => Fr::one(),
                     Some(w) => w[i],
                 }
             };
@@ -85,7 +86,7 @@ impl<'a, Fr: PrimeField> CircomCircuit<Fr> {
             // Public inputs do not exist, so we alloc, and later enforce equality from z values
             let f: Fr = {
                 match witness {
-                    None => Fr::ONE,
+                    None => Fr::one(),
                     Some(w) => w[i],
                 }
             };
@@ -101,7 +102,7 @@ impl<'a, Fr: PrimeField> CircomCircuit<Fr> {
             // Private witness trace
             let f: Fr = {
                 match witness {
-                    None => Fr::ONE,
+                    None => Fr::one(),
                     Some(w) => w[i + self.r1cs.num_inputs],
                 }
             };
